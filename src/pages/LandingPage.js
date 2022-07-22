@@ -1,21 +1,17 @@
 import React from "react";
-import bg_image from "./../material/bg-image.jpg";
 import Navbar from "../components/Navbar";
-import Infosection from "../components/Infosection";
 
 function LandingPage() {
   return (
-    <div className="h-auto md:h-screen w-screen flex flex-col bg-secondary">
+    <div className="h-screen w-screen  bg-background">
       <Navbar />
-      <div className="h-full w-full flex flex-col ">
-        <div className="col-auto h-2/3">
-          <img
-            className="h-full w-screen object-cover "
-            src={bg_image}
-            alt="bg_image"
-          />
+      <div className="flex flex-col sm:flex-row w-full h-full items-center">
+        <div className="flex w-1/2  h-3/5 justify-center">
+          <h1 className="text-7xl text-white font-bold underline decoration-primary hover:decoration-secondary">
+            Ball Dont Lie
+          </h1>
         </div>
-        <Infosection />
+        <div className="flex w-1/2 bg-darkprimary h-3/5 "></div>
       </div>
     </div>
   );
