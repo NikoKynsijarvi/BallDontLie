@@ -5,12 +5,12 @@ import Infosection from "../components/Infosection";
 
 function LandingPage() {
   return (
-    <div className="h-screen w-full flex flex-col bg-secondary">
+    <div className="h-auto md:h-screen w-screen flex flex-col bg-secondary">
       <Navbar />
       <div className="h-full w-full flex flex-col ">
         <div className="col-auto h-2/3">
           <img
-            className="h-2/3 w-fit object-cover absolute"
+            className="h-full w-screen object-cover "
             src={bg_image}
             alt="bg_image"
           />
