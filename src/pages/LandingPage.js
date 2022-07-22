@@ -11,7 +11,7 @@ function LandingPage() {
             Ball Dont Lie
           </h1>
         </div>
-        <div className="flex w-1/2 bg-darkprimary h-3/5 "></div>
+        <div className="flex w-1/3 bg-darkprimary h-3/5 rotate-12"></div>
       </div>
     </div>
   );
