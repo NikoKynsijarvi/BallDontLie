@@ -15,7 +15,7 @@ function Navbar() {
             Login
           </button>
         </Link>
-        <Link to="/login">
+        <Link to="/signup">
           <button className="bg-primary px-6 py-2 rounded cursor-pointer text-white shadow-2xl hover:bg-violet-500">
             Sign up
           </button>
