@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "./../reducers/userReducer";
 import { Succeeded, ErrorText } from "../utils";
@@ -9,6 +10,7 @@ function Loginform() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [succeeded, setSucceeded] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleUsernameChange = (e) => {
@@ -33,9 +35,11 @@ function Loginform() {
         const user = {
           user_id: res.user_id,
           username: res.username,
+          token: res.token,
         };
         dispatch(setUser(user));
         setSucceeded(true);
+        navigate("/home");
         if (error) {
           setError(false);
         }
