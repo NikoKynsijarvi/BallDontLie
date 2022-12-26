@@ -41,7 +41,7 @@ const UserLoggedIn = () => {
 };
 
 function Navbar() {
-  const state = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
   return (
     <div className="flex items-center justify-between p-4 z-[100] w-full sm:absolute ">
       <Link to="/">
@@ -49,7 +49,7 @@ function Navbar() {
           BALL DONT LIE
         </h1>
       </Link>
-      {state.user_id ? <UserLoggedIn /> : <UserNotLoggedIn />}
+      {user.user_id ? <UserLoggedIn /> : <UserNotLoggedIn />}
     </div>
   );
 }

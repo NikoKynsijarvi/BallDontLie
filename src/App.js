@@ -9,11 +9,25 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import shotgroupService from "./services/shotgroup";
+import { useEffect } from "react";
+import { initShoutgroup } from "./reducers/shotgroupReducer";
 
 function App() {
-  const state = useSelector((state) => state);
-  console.log(state);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user.user_id) {
+      shotgroupService.getAll(user.user_id).then((res) => {
+        console.log(res);
+        dispatch(initShoutgroup(res));
+      });
+    }
+  }, [user]);
+  console.log(user);
   return (
     <Router>
       <Routes>
@@ -23,7 +37,7 @@ function App() {
         <Route
           path="/home"
           element={
-            state.user_id ? <HomePage /> : <Navigate replace to="/login" />
+            user.user_id ? <HomePage /> : <Navigate replace to="/login" />
           }
         />
         <Route path="/" element={<LandingPage />} />

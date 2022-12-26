@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -28,18 +29,60 @@ const data = [
   },
 ];
 
-const FtPercentage = () => {
-  const percentage = 72;
+const GameAverages = () => {
+  return (
+    <div className="h-full w-full flex flex-col items-center ">
+      <div className="h-2/3 w-full flex flex-row justify-evenly items-center border-b-4 border-background ">
+        <h1 className="text-4xl text-white">0.0 pts</h1>
+        <h1 className="text-4xl text-white">0.0 reb</h1>
+        <h1 className="text-4xl text-white">0.0 ast</h1>
+      </div>
+      <div className="h-1/3 w-4/5 flex flex-row justify-evenly items-center">
+        <h1 className="text-2xl text-white">0.0 stl</h1>
+        <h1 className="text-2xl text-white">0.0 blk</h1>
+      </div>
+    </div>
+  );
+};
+
+const FtPercentage = ({ value }) => {
   return (
     <CircularProgressbar
-      value={percentage}
-      text={`${percentage}%`}
-      className="h-2/3 bg-white"
+      className="h-2/3 flex justify-center items-center"
+      value={value}
+      styles={buildStyles({
+        // How long animation takes to go from one percentage to another, in seconds
+        pathTransitionDuration: 0.5,
+
+        // Can specify path transition in more detail, or remove it entirely
+        // pathTransition: 'none',
+
+        // Colors
+        pathColor: "#1FE260",
+        textColor: "#ffff",
+        trailColor: "#080c24ff",
+        backgroundColor: "#3e98c7",
+      })}
     />
   );
 };
 
 const FtAverageChart = () => {
+  const shotgroup = useSelector((state) => state.shotgroup);
+  const data = shotgroup
+    .filter((shots) => shots.type === "ft")
+    .map((a) => {
+      const attempts = a.shotsattempted;
+      const made = a.shotsmade;
+      const percentage = (made / attempts).toFixed(2) * 100;
+      return {
+        ft_percentage: percentage,
+        ...a,
+      };
+    });
+
+  console.log(data);
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={data}>
@@ -53,12 +96,12 @@ const FtAverageChart = () => {
             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey="name" />
+        <XAxis dataKey="date" />
         <YAxis />
         <Tooltip />
         <Area
           type="monotone"
-          dataKey="ftpg"
+          dataKey="ft_percentage"
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
@@ -69,19 +112,38 @@ const FtAverageChart = () => {
 };
 
 function HomeScreenContainer() {
+  const shotgroup = useSelector((state) => state.shotgroup);
+  const made = shotgroup
+    .filter((a) => a.type === "ft")
+    .reduce((a1, a2) => {
+      return a1.shotsmade + a2.shotsmade;
+    });
+  const attempted = shotgroup
+    .filter((a) => a.type === "ft")
+    .reduce((a1, a2) => {
+      return a1.shotsattempted + a2.shotsattempted;
+    });
+
+  const percentage = (made / attempted).toFixed(2) * 100;
+  console.log(percentage);
   return (
     <div className="w-full h-full flex p-3 flex-col gap-5">
       <div className="w-full h-1/2 flex flex-row gap-5 ">
         <div className="w-2/3 h-full bg-darkprimary justify-center content-center rounded-md">
           <FtAverageChart />
         </div>
-        <div className="w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md">
-          <FtPercentage />
+        <div className="w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
+          <FtPercentage value={percentage.toFixed(2)} />
+          <h1 className="text-2xl font-bold text-white">
+            {percentage.toFixed(2)} %
+          </h1>
         </div>
       </div>
       <div className="w-full h-1/2 flex flex-row gap-5 ">
         <div className="w-1/4 h-full bg-darkprimary justify-center content-center rounded-md"></div>
-        <div className="w-full h-full bg-darkprimary justify-center content-center rounded-md"></div>
+        <div className="w-full h-full bg-darkprimary justify-center content-center rounded-md">
+          <GameAverages />
+        </div>
       </div>
     </div>
   );
