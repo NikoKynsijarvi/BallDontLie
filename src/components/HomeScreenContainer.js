@@ -10,25 +10,6 @@ import {
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useSelector } from "react-redux";
 
-const data = [
-  {
-    name: "10.12",
-    ftpg: 65,
-  },
-  {
-    name: "12.12",
-    ftpg: 70,
-  },
-  {
-    name: "15.12",
-    ftpg: 68,
-  },
-  {
-    name: "19.12",
-    ftpg: 90,
-  },
-];
-
 const GameAverages = () => {
   return (
     <div className="h-full w-full flex flex-col items-center ">
@@ -67,16 +48,23 @@ const FtPercentage = ({ value }) => {
   );
 };
 
-const FtAverageChart = () => {
+const AveragePercentageChart = () => {
   const shotgroup = useSelector((state) => state.shotgroup);
-  const data = shotgroup
+  var filtered = null;
+  if (shotgroup.length > 5) {
+    const length = shotgroup.length;
+    filtered = shotgroup.slice(length - 5, length);
+  } else {
+    filtered = shotgroup;
+  }
+  const data = filtered
     .filter((shots) => shots.type === "ft")
     .map((a) => {
       const attempts = a.shotsattempted;
       const made = a.shotsmade;
       const percentage = (made / attempts).toFixed(2) * 100;
       return {
-        ft_percentage: percentage,
+        ft_percentage: percentage.toFixed(2),
         ...a,
       };
     });
@@ -84,7 +72,7 @@ const FtAverageChart = () => {
   console.log(data);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="80%">
       <AreaChart data={data}>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -113,24 +101,25 @@ const FtAverageChart = () => {
 
 function HomeScreenContainer() {
   const shotgroup = useSelector((state) => state.shotgroup);
-  const made = shotgroup
-    .filter((a) => a.type === "ft")
-    .reduce((a1, a2) => {
-      return a1.shotsmade + a2.shotsmade;
-    });
-  const attempted = shotgroup
-    .filter((a) => a.type === "ft")
-    .reduce((a1, a2) => {
-      return a1.shotsattempted + a2.shotsattempted;
-    });
 
-  const percentage = (made / attempted).toFixed(2) * 100;
-  console.log(percentage);
+  const filtered = shotgroup.filter((a) => a.type === "ft");
+
+  const summMade = filtered.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.shotsmade,
+    0
+  );
+  const summAttempts = filtered.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.shotsattempted,
+    0
+  );
+
+  const percentage = (summMade / summAttempts).toFixed(2) * 100;
   return (
     <div className="w-full h-full flex p-3 flex-col gap-5">
       <div className="w-full h-1/2 flex flex-row gap-5 ">
-        <div className="w-2/3 h-full bg-darkprimary justify-center content-center rounded-md">
-          <FtAverageChart />
+        <div className="w-2/3 h-full bg-darkprimary flex flex-col justify-center items-center rounded-md">
+          <AveragePercentageChart />
+          <h1 className="text-2xl text-white">Last 5</h1>
         </div>
         <div className="w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
           <FtPercentage value={percentage.toFixed(2)} />
