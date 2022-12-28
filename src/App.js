@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
 import StatisticsPage from "./pages/StatisticsPage";
+import SettingsPage from "./pages/SettingsPage";
 import {
   BrowserRouter as Router,
   Routes,
@@ -43,6 +44,12 @@ function App() {
           path="/home"
           element={
             user.user_id ? <HomePage /> : <Navigate replace to="/login" />
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            user.user_id ? <SettingsPage /> : <Navigate replace to="/login" />
           }
         />
         <Route path="/" element={<LandingPage />} />

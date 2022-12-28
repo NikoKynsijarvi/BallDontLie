@@ -14,13 +14,13 @@ const GameAverages = () => {
   return (
     <div className="h-full w-full flex flex-col items-center ">
       <div className="h-2/3 w-full flex flex-row justify-evenly items-center border-b-4 border-background ">
-        <h1 className="text-4xl text-white">0.0 pts</h1>
-        <h1 className="text-4xl text-white">0.0 reb</h1>
-        <h1 className="text-4xl text-white">0.0 ast</h1>
+        <h1 className="text-xl md:text-4xl text-white">0.0 pts</h1>
+        <h1 className="text-xl md:text-4xl text-white">0.0 reb</h1>
+        <h1 className="text-xl md:text-4xl text-white">0.0 ast</h1>
       </div>
       <div className="h-1/3 w-4/5 flex flex-row justify-evenly items-center">
-        <h1 className="text-2xl text-white">0.0 stl</h1>
-        <h1 className="text-2xl text-white">0.0 blk</h1>
+        <h1 className="text-lg md:text-2xl text-white">0.0 stl</h1>
+        <h1 className="text-lg md:text-2xl text-white">0.0 blk</h1>
       </div>
     </div>
   );
@@ -50,15 +50,16 @@ const FtPercentage = ({ value }) => {
 
 const AveragePercentageChart = () => {
   const shotgroup = useSelector((state) => state.shotgroup);
+  const settings = useSelector((state) => state.settings);
   var filtered = null;
-  if (shotgroup.length > 5) {
+  if (shotgroup.length > settings.homeScreenDisplayLast) {
     const length = shotgroup.length;
-    filtered = shotgroup.slice(length - 5, length);
+    filtered = shotgroup.slice(length - settings.homeScreenDisplayLast, length);
   } else {
     filtered = shotgroup;
   }
   const data = filtered
-    .filter((shots) => shots.type === "ft")
+    .filter((shots) => shots.type === settings.homeScreenAverageChart)
     .map((a) => {
       const attempts = a.shotsattempted;
       const made = a.shotsmade;
@@ -68,8 +69,6 @@ const AveragePercentageChart = () => {
         ...a,
       };
     });
-
-  console.log(data);
 
   return (
     <ResponsiveContainer width="100%" height="80%">
@@ -101,7 +100,7 @@ const AveragePercentageChart = () => {
 
 function HomeScreenContainer() {
   const shotgroup = useSelector((state) => state.shotgroup);
-
+  const settings = useSelector((state) => state.settings);
   const filtered = shotgroup.filter((a) => a.type === "ft");
 
   const summMade = filtered.reduce(
@@ -116,20 +115,23 @@ function HomeScreenContainer() {
   const percentage = (summMade / summAttempts).toFixed(2) * 100;
   return (
     <div className="w-full h-full flex p-3 flex-col gap-5">
-      <div className="w-full h-1/2 flex flex-row gap-5 ">
-        <div className="w-2/3 h-full bg-darkprimary flex flex-col justify-center items-center rounded-md">
+      <div className="w-full h-1/2 flex flex-col md:flex-row gap-5 ">
+        <div className="w-full md:w-2/3 h-full bg-darkprimary flex flex-col justify-center items-center rounded-md">
           <AveragePercentageChart />
-          <h1 className="text-2xl text-white">Last 5</h1>
+          <h1 className="text-2xl text-white">
+            Last {settings.homeScreenDisplayLast}{" "}
+            {settings.homeScreenAverageChart} %
+          </h1>
         </div>
-        <div className="w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
+        <div className="w-1/2 md:w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
           <FtPercentage value={percentage.toFixed(2)} />
           <h1 className="text-2xl font-bold text-white">
             {percentage.toFixed(2)} %
           </h1>
         </div>
       </div>
-      <div className="w-full h-1/2 flex flex-row gap-5 ">
-        <div className="w-1/4 h-full bg-darkprimary justify-center content-center rounded-md"></div>
+      <div className="w-full h-1/2 flex flex-col md:flex-row gap-5 ">
+        <div className="w-full md:w-1/4 h-full bg-darkprimary justify-center content-center rounded-md"></div>
         <div className="w-full h-full bg-darkprimary justify-center content-center rounded-md">
           <GameAverages />
         </div>

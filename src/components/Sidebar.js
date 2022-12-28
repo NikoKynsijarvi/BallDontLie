@@ -1,5 +1,5 @@
 import React from "react";
-import { FaChartLine, FaUser, FaHome } from "react-icons/fa";
+import { FaChartLine, FaUser, FaHome, FaHistory } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ function Sidebar() {
 
   return (
     <div className="flex z-50">
-      <div className="flex flex-col h-screen p-3 bg-darkprimary text-white shadow w-52">
+      <div className="flex flex-col h-screen p-3 bg-darkprimary text-white shadow md:w-52 w-32">
         <div className="space-y-3">
           <div className="flex-1">
             <ul className="pt-2 pb-4 space-y-1 text-sm">
@@ -51,6 +51,21 @@ function Sidebar() {
                 >
                   <FaChartLine size={28} />
                   <p>Statistics</p>
+                </Link>
+              </li>
+              <li
+                className={
+                  chooseActive("history")
+                    ? "rounded-sm w-full  bg-secondary"
+                    : "rounded-sm w-full  hover:bg-violet-500"
+                }
+              >
+                <Link
+                  to={"/history"}
+                  className="flex items-center p-2 space-x-3 rounded-md "
+                >
+                  <FaHistory size={28} />
+                  <p>History</p>
                 </Link>
               </li>
               <li

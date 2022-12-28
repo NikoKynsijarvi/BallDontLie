@@ -6,10 +6,12 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import userReducer from "./reducers/userReducer";
 import shotgroupReducer from "./reducers/shotgroupReducer";
+import settingsReducer from "./reducers/settings";
 
 const reducer = combineReducers({
   shotgroup: shotgroupReducer,
   user: userReducer,
+  settings: settingsReducer,
 });
 const store = createStore(reducer);
 
