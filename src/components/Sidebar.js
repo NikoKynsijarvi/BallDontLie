@@ -4,13 +4,16 @@ import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/userReducer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const logout = (e) => {
     e.preventDefault();
     dispatch(logoutUser());
+    window.localStorage.removeItem("loggedUser");
+    navigate("/login");
   };
 
   const chooseActive = (text) => {

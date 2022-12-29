@@ -49,7 +49,7 @@ function Navbar() {
           BALL DONT LIE
         </h1>
       </Link>
-      {user.user_id ? <UserLoggedIn /> : <UserNotLoggedIn />}
+      <UserNotLoggedIn />
     </div>
   );
 }

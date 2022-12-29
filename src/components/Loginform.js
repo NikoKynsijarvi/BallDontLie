@@ -38,6 +38,7 @@ function Loginform() {
           token: res.token,
         };
         dispatch(setUser(user));
+        window.localStorage.setItem("loggedUser", JSON.stringify(user));
         setSucceeded(true);
         navigate("/home");
         if (error) {

@@ -2,12 +2,69 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeHomeaverageChart } from "../reducers/settings";
 
+function RadioButtonAmount() {
+  return (
+    <div className="flex items-center flex-col justify-center w-full h-1/3 gap-4 text-white">
+      <h1>Homescreen display last</h1>
+      <div>
+        <div className="form-check flex items-center">
+          <input
+            className="form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 bg-white checked:bg-secondary checked:border-violet-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1"
+            value="5"
+            onClick={(e) => console.log(e.target.value)}
+          />
+          <label
+            className=" inline-block text-white"
+            htmlFor="flexRadioDefault1"
+          >
+            5
+          </label>
+        </div>
+        <div className="form-check flex items-center">
+          <input
+            className="form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 bg-white checked:bg-secondary checked:border-violet-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2"
+            value="10"
+            onClick={(e) => console.log(e.target.value)}
+          />
+          <label
+            className="form-check-label inline-block text-white"
+            htmlFor="flexRadioDefault2"
+          >
+            10
+          </label>
+        </div>
+        <div className="form-check flex items-center">
+          <input
+            className="form-check-input appearance-none rounded-full h-6 w-6 border border-gray-300 bg-white checked:bg-secondary checked:border-violet-500 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2"
+            value="15"
+            onClick={(e) => console.log(e.target.value)}
+          />
+          <label
+            className="form-check-label inline-block text-white"
+            htmlFor="flexRadioDefault2"
+          >
+            15
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Toggle() {
   const settings = useSelector((state) => state.settings);
   const [enabled, setEnabled] = useState(
     settings.homeScreenAverageChart === "ft" ? false : true
   );
-
   const dispatch = useDispatch();
 
   const handleChange = () => {
@@ -48,6 +105,7 @@ function Settings() {
         <h1>Homescreen chart type</h1>
         <Toggle />
       </div>
+      <RadioButtonAmount />
     </div>
   );
 }

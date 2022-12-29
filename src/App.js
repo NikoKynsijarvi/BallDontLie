@@ -4,21 +4,25 @@ import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
 import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import shotgroupService from "./services/shotgroup";
 import { useEffect } from "react";
 import { initShoutgroup } from "./reducers/shotgroupReducer";
+import { setUser } from "./reducers/userReducer";
 
 function App() {
   const user = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      console.log(user);
+      dispatch(setUser(user));
+    }
+  }, []);
 
   useEffect(() => {
     if (user.user_id) {
@@ -28,30 +32,26 @@ function App() {
       });
     }
   }, [user]);
-  console.log(user);
+
+  if (!user.user_id) {
+    return (
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LandingPage />} />
+        </Routes>
+      </Router>
+    );
+  }
+
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route
-          path="/statistics"
-          element={
-            user.user_id ? <StatisticsPage /> : <Navigate replace to="/login" />
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            user.user_id ? <HomePage /> : <Navigate replace to="/login" />
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            user.user_id ? <SettingsPage /> : <Navigate replace to="/login" />
-          }
-        />
+        <Route path="/statistics" element={<StatisticsPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>

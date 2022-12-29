@@ -126,7 +126,7 @@ function HomeScreenContainer() {
         <div className="w-1/2 md:w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
           <FtPercentage value={percentage.toFixed(2)} />
           <h1 className="text-2xl font-bold text-white">
-            {percentage.toFixed(2)} %
+            {percentage.toFixed(2)} % ft
           </h1>
         </div>
       </div>
