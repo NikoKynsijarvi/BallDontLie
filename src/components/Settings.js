@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ChangeHomeaverageChart } from "../reducers/settings";
+import {
+  ChangeHomeaverageChart,
+  ChangeHomedisplayLast,
+} from "../reducers/settings";
 
-function RadioButtonAmount() {
+function RadioButtonGroup() {
+  const displayLast = useSelector(
+    (state) => state.settings.homeScreenDisplayLast
+  );
+
+  const dispatch = useDispatch();
+
+  console.log(displayLast);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    dispatch(ChangeHomedisplayLast(value));
+  };
+
   return (
     <div className="flex items-center flex-col justify-center w-full h-1/3 gap-4 text-white">
       <h1>Homescreen display last</h1>
@@ -14,7 +30,8 @@ function RadioButtonAmount() {
             name="flexRadioDefault"
             id="flexRadioDefault1"
             value="5"
-            onClick={(e) => console.log(e.target.value)}
+            defaultChecked={displayLast === 5 ? true : false}
+            onChange={(e) => handleChange(e)}
           />
           <label
             className=" inline-block text-white"
@@ -30,7 +47,8 @@ function RadioButtonAmount() {
             name="flexRadioDefault"
             id="flexRadioDefault2"
             value="10"
-            onClick={(e) => console.log(e.target.value)}
+            defaultChecked={displayLast === 10 ? true : false}
+            onChange={(e) => handleChange(e)}
           />
           <label
             className="form-check-label inline-block text-white"
@@ -46,7 +64,8 @@ function RadioButtonAmount() {
             name="flexRadioDefault"
             id="flexRadioDefault2"
             value="15"
-            onClick={(e) => console.log(e.target.value)}
+            defaultChecked={displayLast === 15 ? true : false}
+            onChange={(e) => handleChange(e)}
           />
           <label
             className="form-check-label inline-block text-white"
@@ -105,7 +124,7 @@ function Settings() {
         <h1>Homescreen chart type</h1>
         <Toggle />
       </div>
-      <RadioButtonAmount />
+      <RadioButtonGroup />
     </div>
   );
 }

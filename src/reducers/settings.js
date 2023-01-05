@@ -24,4 +24,11 @@ export const ChangeHomeaverageChart = (data) => {
   };
 };
 
+export const ChangeHomedisplayLast = (data) => {
+  return {
+    type: "CHANGE_HOMEDISPLAYLAST",
+    data,
+  };
+};
+
 export default settingsReducer;

@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { IoMdAdd } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 const GameAverages = () => {
@@ -98,6 +99,21 @@ const AveragePercentageChart = () => {
   );
 };
 
+function AddNewDialogButton() {
+  return (
+    <div className="w-full h-full flex justify-center items-center text-white flex-col gap-5 ">
+      <div
+        className="h-1/4 w-1/3 rounded-full bg-primary flex items-center justify-center transform 
+                                transition duration-500 hover:scale-110 hover:bg-secondary"
+      >
+        <IoMdAdd className="h-1/2 w-1/2" />
+      </div>
+
+      <h1>Add new</h1>
+    </div>
+  );
+}
+
 function HomeScreenContainer() {
   const shotgroup = useSelector((state) => state.shotgroup);
   const settings = useSelector((state) => state.settings);
@@ -131,7 +147,9 @@ function HomeScreenContainer() {
         </div>
       </div>
       <div className="w-full h-1/2 flex flex-col md:flex-row gap-5 ">
-        <div className="w-full md:w-1/4 h-full bg-darkprimary justify-center content-center rounded-md"></div>
+        <div className="w-full md:w-1/4 h-full flex bg-darkprimary justify-center items-center rounded-md">
+          <AddNewDialogButton />
+        </div>
         <div className="w-full h-full bg-darkprimary justify-center content-center rounded-md">
           <GameAverages />
         </div>
