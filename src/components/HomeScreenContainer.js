@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AreaChart,
   XAxis,
@@ -10,6 +10,8 @@ import {
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { IoMdAdd } from "react-icons/io";
 import { useSelector } from "react-redux";
+import Addnewdialog from "./Addnewdialog";
+import "./../styles.css";
 
 const GameAverages = () => {
   return (
@@ -99,10 +101,16 @@ const AveragePercentageChart = () => {
   );
 };
 
-function AddNewDialogButton() {
+function AddNewDialogButton(props) {
+  const handleClick = (e) => {
+    e.preventDefault();
+    props.setFlip((prevState) => !prevState);
+  };
+
   return (
     <div className="w-full h-full flex justify-center items-center text-white flex-col gap-5 ">
       <div
+        onClick={(e) => handleClick(e)}
         className="h-1/4 w-1/3 rounded-full bg-primary flex items-center justify-center transform 
                                 transition duration-500 hover:scale-110 hover:bg-secondary"
       >
@@ -115,6 +123,8 @@ function AddNewDialogButton() {
 }
 
 function HomeScreenContainer() {
+  const [flip, setFlip] = useState(false);
+
   const shotgroup = useSelector((state) => state.shotgroup);
   const settings = useSelector((state) => state.settings);
   const filtered = shotgroup.filter((a) => a.type === "ft");
@@ -132,12 +142,19 @@ function HomeScreenContainer() {
   return (
     <div className="w-full h-full flex p-3 flex-col gap-5">
       <div className="w-full h-1/2 flex flex-col md:flex-row gap-5 ">
-        <div className="w-full md:w-2/3 h-full bg-darkprimary flex flex-col justify-center items-center rounded-md">
-          <AveragePercentageChart />
-          <h1 className="text-2xl text-white">
-            Last {settings.homeScreenDisplayLast}{" "}
-            {settings.homeScreenAverageChart} %
-          </h1>
+        <div className="flip-card">
+          <div className={flip ? "flip-card-inner" : "inner-rotated"}>
+            <div className="average-chart-front">
+              <AveragePercentageChart />
+              <h1 className="text-2xl text-white">
+                Last {settings.homeScreenDisplayLast}{" "}
+                {settings.homeScreenAverageChart} %
+              </h1>
+            </div>
+            <div className="add-dialog-back">
+              <Addnewdialog />
+            </div>
+          </div>
         </div>
         <div className="w-1/2 md:w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
           <FtPercentage value={percentage.toFixed(2)} />
@@ -148,7 +165,7 @@ function HomeScreenContainer() {
       </div>
       <div className="w-full h-1/2 flex flex-col md:flex-row gap-5 ">
         <div className="w-full md:w-1/4 h-full flex bg-darkprimary justify-center items-center rounded-md">
-          <AddNewDialogButton />
+          <AddNewDialogButton setFlip={setFlip} />
         </div>
         <div className="w-full h-full bg-darkprimary justify-center content-center rounded-md">
           <GameAverages />
