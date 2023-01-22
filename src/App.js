@@ -38,6 +38,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </Router>
@@ -48,7 +49,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
         <Route path="/statistics" element={<StatisticsPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/settings" element={<SettingsPage />} />

@@ -145,7 +145,7 @@ function HomeScreenContainer() {
         <div className="flip-card">
           <div className={flip ? "flip-card-inner" : "inner-rotated"}>
             <div className="average-chart-front">
-              <AveragePercentageChart />
+             {flip ? <AveragePercentageChart />: null} 
               <h1 className="text-2xl text-white">
                 Last {settings.homeScreenDisplayLast}{" "}
                 {settings.homeScreenAverageChart} %
