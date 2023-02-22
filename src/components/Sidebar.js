@@ -1,5 +1,5 @@
 import React from "react";
-import { FaChartLine, FaUser, FaHome, FaHistory } from "react-icons/fa";
+import { FaChartLine, FaUser, FaHome, FaHistory, FaMap } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
@@ -84,6 +84,21 @@ function Sidebar() {
                 >
                   <FaUser size={28} />
                   <p>Profile</p>
+                </Link>
+              </li>
+              <li
+                className={
+                  chooseActive("/map")
+                    ? "rounded-sm w-full  bg-secondary"
+                    : "rounded-sm w-full  hover:bg-violet-500"
+                }
+              >
+                <Link
+                  to={"/map"}
+                  className="flex items-center p-2 space-x-3 rounded-md"
+                >
+                  <FaMap size={28} />
+                  <p>Map</p>
                 </Link>
               </li>
               <li

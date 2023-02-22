@@ -4,6 +4,7 @@ import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
 import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
+import MapPage from "./pages/MapPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import shotgroupService from "./services/shotgroup";
@@ -14,6 +15,7 @@ import { setUser } from "./reducers/userReducer";
 function App() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  console.log(user);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -52,6 +54,7 @@ function App() {
         <Route path="/statistics" element={<StatisticsPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/map" element={<MapPage />} />
         <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
