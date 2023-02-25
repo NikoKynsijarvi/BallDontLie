@@ -5,6 +5,8 @@ import HomePage from "./pages/HomePage";
 import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
 import MapPage from "./pages/MapPage";
+import HistoryPage from "./pages/HistoryPage";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import shotgroupService from "./services/shotgroup";
@@ -55,6 +57,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/history" element={<HistoryPage />} />
         <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>

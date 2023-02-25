@@ -1,8 +1,7 @@
 import React from "react";
-import { Box, Text, Grid, GridItem, Image } from "@chakra-ui/react";
-import Navbar from "../components/Navbar";
-import Loginform from "../components/Loginform";
-import LoginContainer from "../components/public/LoginContainer";
+import { Text, Grid, GridItem } from "@chakra-ui/react";
+
+import LoginContainer from "../components/forms/LoginContainer";
 
 function LoginPage() {
   return (

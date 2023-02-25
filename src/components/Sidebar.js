@@ -5,6 +5,7 @@ import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
+import UserPreview from "./pageComponents/UserPreview";
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function Sidebar() {
       <div className="flex flex-col h-screen p-3 bg-darkprimary text-white shadow md:w-52 w-32">
         <div className="space-y-3">
           <div className="flex-1">
+            <UserPreview />
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               <li
                 className={
@@ -134,9 +136,6 @@ function Sidebar() {
             </ul>
           </div>
         </div>
-        <h2 className="text-lg text-small sm:font-medium text-primary cursor-pointer  hover:text-violet-500   w-full">
-          BALL DONT LIE
-        </h2>
       </div>
     </div>
   );

@@ -146,9 +146,9 @@ function Addnewdialog() {
     shotGroupService
       .addNew(shotGroupFull, user.token)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         setButtonDisabled(true);
-        dispatch(addShotGroup(res.data));
+        dispatch(addShotGroup(res));
       })
       .catch((error) => {
         console.log(error);
