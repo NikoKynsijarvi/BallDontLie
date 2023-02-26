@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import HistoryCard from "./HistoryCard";
+import HistoryCard from "../cards/HistoryCard";
 
 const HistoryList = () => {
   const shotgroups = useSelector((state) => state.shotgroup);

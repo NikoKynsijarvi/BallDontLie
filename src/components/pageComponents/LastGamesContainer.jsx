@@ -1,5 +1,5 @@
 import { Stat, StatLabel, Card, VStack } from "@chakra-ui/react";
-import HomeGameCard from "./HomeGameCard";
+import HomeGameCard from "../cards/HomeGameCard";
 
 const LastGamesContainer = () => {
   return (

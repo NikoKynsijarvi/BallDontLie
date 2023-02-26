@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import HomeInfoStats from "../components/pageComponents/HomeInfoStats";
 import LastGameInfo from "../components/pageComponents/LastGameInfo";
 import HomePercentageChart from "../components/pageComponents/HomePercentageChart";
+import AddNewButton from "../components/pageComponents/AddNewButton";
 
 import { HStack, Center, Card, VStack } from "@chakra-ui/react";
 import LastGamesContainer from "../components/pageComponents/LastGamesContainer";
@@ -20,7 +21,12 @@ function HomePage() {
               <LastGamesContainer />
             </HStack>
             <HStack padding={5} w="full" h="100%">
-              <Card color="white" bgColor="#151e34ff" h="full" w="70%"></Card>
+              <HStack w="70%" gap={5}>
+                <AddNewButton />
+                <AddNewButton />
+                <AddNewButton />
+              </HStack>
+
               <LastGameInfo />
             </HStack>
           </VStack>

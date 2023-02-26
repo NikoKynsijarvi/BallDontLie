@@ -18,7 +18,6 @@ const AveragePercentageChart = () => {
   const filteredByType = shotgroup.filter(
     (shots) => shots.type === settings.homeScreenAverageChart
   );
-  console.log(filteredByType.length);
   var filtered = null;
 
   if (filteredByType.length > settings.homeScreenDisplayLast) {
@@ -39,8 +38,6 @@ const AveragePercentageChart = () => {
       ...a,
     };
   });
-
-  console.log(shotgroup.length);
 
   return (
     <ResponsiveContainer width="100%" height="80%">
