@@ -2,6 +2,7 @@ const initialState = {
   homeScreenAverageChart: "ft",
   homeScreenAveragePercentage: "ft",
   homeScreenDisplayLast: 5,
+  sortShotsByLatest: false,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -12,19 +13,28 @@ const settingsReducer = (state = initialState, action) => {
     case "CHANGE_HOMEDISPLAYLAST":
       state = { ...state, homeScreenDisplayLast: action.data };
       return state;
+    case "CHANGE_SORTDIRECTION":
+      state = { ...state, sortShotsByLatest: !state.sortShotsByLatest };
+      return state;
     default:
       return state;
   }
 };
 
-export const ChangeHomeaverageChart = (data) => {
+export const changeHomeaverageChart = (data) => {
   return {
     type: "CHANGE_HOMEAVERAGECHART",
     data,
   };
 };
 
-export const ChangeHomedisplayLast = (data) => {
+export const changeSortDirection = () => {
+  return {
+    type: "CHANGE_SORTDIRECTION",
+  };
+};
+
+export const changeHomedisplayLast = (data) => {
   return {
     type: "CHANGE_HOMEDISPLAYLAST",
     data,

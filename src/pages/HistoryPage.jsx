@@ -8,6 +8,7 @@ const HistoryPage = () => {
     <div className="h-screen w-screen  bg-background flex flex-row">
       <Sidebar />
       <VStack w="100%">
+        <HistoryFilters />
         <HistoryList />
       </VStack>
     </div>

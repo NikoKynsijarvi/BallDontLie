@@ -7,8 +7,8 @@ import {
   Radio,
   Stack,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { ChangeHomeaverageChart } from "./../../reducers/settings";
+import { useDispatch } from "react-redux";
+import { changeHomeaverageChart } from "./../../reducers/settings";
 import AveragePercentageChart from "../AveragePercentageChart";
 import { useEffect } from "react";
 
@@ -17,7 +17,7 @@ const HomePercentageChart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(ChangeHomeaverageChart(value));
+    dispatch(changeHomeaverageChart(value));
   }, [value]);
 
   return (
