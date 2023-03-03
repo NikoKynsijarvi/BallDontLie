@@ -4,11 +4,21 @@ import HomeInfoStats from "../components/pageComponents/HomeInfoStats";
 import LastGameInfo from "../components/pageComponents/LastGameInfo";
 import HomePercentageChart from "../components/pageComponents/HomePercentageChart";
 import AddNewButton from "../components/pageComponents/AddNewButton";
+import AddShootaroundForm from "../components/forms/AddShootaroundForm";
 
-import { HStack, Center, VStack, Image, Text } from "@chakra-ui/react";
+import {
+  HStack,
+  Center,
+  VStack,
+  Image,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import LastGamesContainer from "../components/pageComponents/LastGamesContainer";
 
 function HomePage() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <div className="h-screen w-screen  bg-background flex flex-row">
       <Sidebar />
@@ -20,9 +30,14 @@ function HomePage() {
               <HomePercentageChart />
               <LastGamesContainer />
             </HStack>
+            <AddShootaroundForm
+              onClose={onClose}
+              onOpen={onOpen}
+              isOpen={isOpen}
+            />
             <HStack padding={5} w="full" h="100%">
               <HStack w="70%" gap={5}>
-                <AddNewButton />
+                <AddNewButton onOpen={onOpen} />
                 <Center bgColor="white" h="150px" borderRadius="md" w="30%">
                   <Image
                     filter="brightness(50%)"

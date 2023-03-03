@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addShotGroup } from "../reducers/shotgroupReducer";
 import shotGroupService from "./../services/shotgroup";
+import { Button, HStack } from "@chakra-ui/react";
 
 function ShotAmountInput({ inputValue, setShotGroup, shotGroup }) {
   const [validated, setValidated] = useState(false);
@@ -19,13 +20,13 @@ function ShotAmountInput({ inputValue, setShotGroup, shotGroup }) {
       setValidated(false);
     }
 
-    if (inputValue === "attempted" && parsedValue !== NaN) {
+    if (inputValue === "attempted" && !isNaN(parsedValue)) {
       const newShotGroup = { ...shotGroup, shotsattempted: parsedValue };
       setShotGroup(newShotGroup);
       return;
     }
 
-    if (inputValue === "made" && parsedValue !== NaN) {
+    if (inputValue === "made" && !isNaN(parsedValue)) {
       const newShotGroup = { ...shotGroup, shotsmade: parsedValue };
       setShotGroup(newShotGroup);
       return;
@@ -67,7 +68,6 @@ function ChooseType({ shotGroup, setShotGroup }) {
 
   return (
     <div className="flex flex-col">
-      <h1>Type</h1>
       <div className="flex flex-row w-full gap-10">
         <button
           className={
@@ -96,7 +96,7 @@ function ChooseType({ shotGroup, setShotGroup }) {
   );
 }
 
-function Addnewdialog() {
+function Addnewdialog({ onClose }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -149,6 +149,7 @@ function Addnewdialog() {
         console.log(res);
         setButtonDisabled(true);
         dispatch(addShotGroup(res));
+        onClose();
       })
       .catch((error) => {
         console.log(error);
@@ -171,16 +172,19 @@ function Addnewdialog() {
         setShotGroup={setShotGroup}
         shotGroup={shotGroup}
       />
-      <button
-        className={
-          buttonDisabled
-            ? "w-1/4 h-1/6 bg-gray-400 rounded-md cursor-default"
-            : "w-1/4 h-1/6 bg-secondary rounded-md"
-        }
-        onClick={(e) => handleSubmit(e)}
-      >
-        Add
-      </button>
+      <HStack>
+        <Button
+          w="50%"
+          colorScheme={"blue"}
+          isDisabled={buttonDisabled}
+          onClick={(e) => handleSubmit(e)}
+        >
+          Add
+        </Button>
+        <Button colorScheme="blue" mr={3} onClick={onClose}>
+          Close
+        </Button>
+      </HStack>
     </div>
   );
 }

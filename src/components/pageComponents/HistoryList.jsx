@@ -16,10 +16,10 @@ const HistoryList = () => {
 
   function sortByTypes(shotgroup) {
     return shotgroup.filter((s) => {
-      if (settings.sortThrees && s.type == "3p") {
+      if (settings.sortThrees && s.type === "3p") {
         return s;
       }
-      if (settings.sortFreeThrows && s.type == "ft") {
+      if (settings.sortFreeThrows && s.type === "ft") {
         return s;
       }
     });
