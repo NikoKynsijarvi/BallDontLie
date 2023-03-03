@@ -7,23 +7,19 @@ const getAll = async (id) => {
   return response.data;
 };
 
-const addNew = async (object) => {
-  console.log(object);
-  const newObject = {
-    "username": "Niko98",
-    "type":"3p",
-    "shotsmade": 5,
-    "shotsattempted": 15,
-    "date": "2022-10-10"
-    
-}
-  const request = axios.post(baseUrl, newObject)
-  const response = await request
-  return response.data
-  
-}
+const addNew = async (object, token) => {
+  const userToken = token;
+  const header = {
+    Authorization: `Bearer ${userToken}`,
+  };
+
+  const request = axios.post(baseUrl, object, { headers: header });
+  const response = await request;
+  console.log(response);
+  return response.data;
+};
 
 export default {
   getAll,
-  addNew
+  addNew,
 };

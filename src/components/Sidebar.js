@@ -1,10 +1,11 @@
 import React from "react";
-import { FaChartLine, FaUser, FaHome, FaHistory } from "react-icons/fa";
+import { FaChartLine, FaUser, FaHome, FaHistory, FaMap } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
+import UserPreview from "./pageComponents/UserPreview";
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function Sidebar() {
       <div className="flex flex-col h-screen p-3 bg-darkprimary text-white shadow md:w-52 w-32">
         <div className="space-y-3">
           <div className="flex-1">
+            <UserPreview />
             <ul className="pt-2 pb-4 space-y-1 text-sm">
               <li
                 className={
@@ -88,6 +90,21 @@ function Sidebar() {
               </li>
               <li
                 className={
+                  chooseActive("/map")
+                    ? "rounded-sm w-full  bg-secondary"
+                    : "rounded-sm w-full  hover:bg-violet-500"
+                }
+              >
+                <Link
+                  to={"/map"}
+                  className="flex items-center p-2 space-x-3 rounded-md"
+                >
+                  <FaMap size={28} />
+                  <p>Map</p>
+                </Link>
+              </li>
+              <li
+                className={
                   chooseActive("settings")
                     ? "rounded-sm w-full  bg-secondary"
                     : "rounded-sm w-full  hover:bg-violet-500"
@@ -119,9 +136,6 @@ function Sidebar() {
             </ul>
           </div>
         </div>
-        <h2 className="text-lg text-small sm:font-medium text-primary cursor-pointer  hover:text-violet-500   w-full">
-          BALL DONT LIE
-        </h2>
       </div>
     </div>
   );

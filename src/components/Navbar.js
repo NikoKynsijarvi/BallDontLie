@@ -43,7 +43,7 @@ const UserLoggedIn = () => {
 function Navbar() {
   const user = useSelector((state) => state.user);
   return (
-    <div className="flex items-center justify-between p-4 z-[100] w-full sm:absolute ">
+    <div className="flex items-center justify-between p-4 z-[100] w-full">
       <Link to="/">
         <h1 className="text-lg text-small sm:font-medium text-primary cursor-pointer  hover:text-violet-500">
           BALL DONT LIE
