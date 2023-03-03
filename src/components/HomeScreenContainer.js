@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import {
-  AreaChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-  ResponsiveContainer,
-} from "recharts";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { IoMdAdd } from "react-icons/io";
 import { useSelector } from "react-redux";
 import Addnewdialog from "./Addnewdialog";
+import AveragePercentageChart from "./AveragePercentageChart";
 import "./../styles.css";
 
 const GameAverages = () => {
@@ -29,7 +22,7 @@ const GameAverages = () => {
   );
 };
 
-const FtPercentage = ({ value }) => {
+const ShotPercentage = ({ value }) => {
   return (
     <CircularProgressbar
       className="h-2/3 flex justify-center items-center"
@@ -48,56 +41,6 @@ const FtPercentage = ({ value }) => {
         backgroundColor: "#3e98c7",
       })}
     />
-  );
-};
-
-const AveragePercentageChart = () => {
-  const shotgroup = useSelector((state) => state.shotgroup);
-  const settings = useSelector((state) => state.settings);
-  var filtered = null;
-  if (shotgroup.length > settings.homeScreenDisplayLast) {
-    const length = shotgroup.length;
-    filtered = shotgroup.slice(length - settings.homeScreenDisplayLast, length);
-  } else {
-    filtered = shotgroup;
-  }
-  const data = filtered
-    .filter((shots) => shots.type === settings.homeScreenAverageChart)
-    .map((a) => {
-      const attempts = a.shotsattempted;
-      const made = a.shotsmade;
-      const percentage = (made / attempts).toFixed(2) * 100;
-      return {
-        ft_percentage: percentage.toFixed(2),
-        ...a,
-      };
-    });
-
-  return (
-    <ResponsiveContainer width="100%" height="80%">
-      <AreaChart data={data}>
-        <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="ft_percentage"
-          stroke="#8884d8"
-          fillOpacity={1}
-          fill="url(#colorUv)"
-        />
-      </AreaChart>
-    </ResponsiveContainer>
   );
 };
 
@@ -123,7 +66,7 @@ function AddNewDialogButton(props) {
 }
 
 function HomeScreenContainer() {
-  const [flip, setFlip] = useState(false);
+  const [flip, setFlip] = useState(true);
 
   const shotgroup = useSelector((state) => state.shotgroup);
   const settings = useSelector((state) => state.settings);
@@ -145,7 +88,7 @@ function HomeScreenContainer() {
         <div className="flip-card">
           <div className={flip ? "flip-card-inner" : "inner-rotated"}>
             <div className="average-chart-front">
-             {flip ? <AveragePercentageChart />: null} 
+              {flip ? <AveragePercentageChart /> : null}
               <h1 className="text-2xl text-white">
                 Last {settings.homeScreenDisplayLast}{" "}
                 {settings.homeScreenAverageChart} %
@@ -157,7 +100,7 @@ function HomeScreenContainer() {
           </div>
         </div>
         <div className="w-1/2 md:w-1/3 h-full bg-darkprimary flex justify-center items-center rounded-md flex-col gap-3">
-          <FtPercentage value={percentage.toFixed(2)} />
+          <ShotPercentage value={percentage.toFixed(2)} />
           <h1 className="text-2xl font-bold text-white">
             {percentage.toFixed(2)} % ft
           </h1>
