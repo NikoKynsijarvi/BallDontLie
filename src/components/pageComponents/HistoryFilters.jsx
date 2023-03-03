@@ -1,7 +1,7 @@
 import { Box, HStack, Tag } from "@chakra-ui/react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSortDirection } from "../../reducers/settings";
+import { changeSortDirection, changeSortThrees } from "../../reducers/settings";
 import { FaSortAmountDownAlt, FaSortAmountUpAlt } from "react-icons/fa";
 
 const HistoryFilters = () => {
@@ -17,6 +17,7 @@ const HistoryFilters = () => {
   };
 
   const addThreePointers = () => {
+    dispatch(changeSortThrees());
     setSortBadge({ ...sortBadge, threePoints: !sortBadge.threePoints });
   };
 

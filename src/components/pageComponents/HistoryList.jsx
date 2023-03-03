@@ -14,9 +14,22 @@ const HistoryList = () => {
     }
   });
 
+  function sortByTypes(shotgroup) {
+    return shotgroup.filter((s) => {
+      if (settings.sortThrees && s.type == "3p") {
+        return s;
+      }
+      if (settings.sortFreeThrows && s.type == "ft") {
+        return s;
+      }
+    });
+  }
+
+  const sortedByType = sortByTypes(sorted);
+
   return (
     <VStack w="100%" padding={10} paddingTop={0} overflow="scroll">
-      {sorted.map((s) => {
+      {sortedByType.map((s) => {
         return <HistoryCard shotgroup={s} key={s.id} />;
       })}
     </VStack>
