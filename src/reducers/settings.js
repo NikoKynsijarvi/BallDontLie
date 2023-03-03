@@ -20,6 +20,8 @@ const settingsReducer = (state = initialState, action) => {
       return state;
     case "CHANGE_SORT_THREES":
       return (state = { ...state, sortThrees: !state.sortThrees });
+    case "CHANGE_SORT_FT":
+      return (state = { ...state, sortFreeThrows: !state.sortFreeThrows });
     default:
       return state;
   }
@@ -35,6 +37,12 @@ export const changeHomeaverageChart = (data) => {
 export const changeSortThrees = () => {
   return {
     type: "CHANGE_SORT_THREES",
+  };
+};
+
+export const changeSortFT = () => {
+  return {
+    type: "CHANGE_SORT_FT",
   };
 };
 
