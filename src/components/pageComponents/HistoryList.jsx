@@ -29,8 +29,8 @@ const HistoryList = () => {
 
   return (
     <VStack w="100%" padding={10} paddingTop={0} overflow="scroll">
-      {sortedByType.map((s) => {
-        return <HistoryCard shotgroup={s} key={s.id} />;
+      {sortedByType.map((s, index) => {
+        return <HistoryCard shotgroup={s} key={index} />;
       })}
     </VStack>
   );

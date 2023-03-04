@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 const UserPreview = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   return (
     <Container h="200" padding="5">
       <VStack>
