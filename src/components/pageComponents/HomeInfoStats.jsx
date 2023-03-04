@@ -6,6 +6,7 @@ import {
   StatHelpText,
   StatArrow,
 } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 import SmallRoundedContainer from "./SmallRoundedContainer";
@@ -65,8 +66,14 @@ const HomeInfoStats = () => {
   const freethrows = shotgroups.filter((s) => s.type === "ft");
   const threes = shotgroups.filter((s) => s.type === "3p");
 
-  const ftTrend = compareToLastMonth(freethrows, month, year);
-  const threesTrend = compareToLastMonth(threes, month, year);
+  const ftTrend = useMemo(
+    () => compareToLastMonth(freethrows, month, year),
+    [freethrows, month, year]
+  );
+  const threesTrend = useMemo(
+    () => compareToLastMonth(threes, month, year),
+    [threes, month, year]
+  );
 
   return (
     <HStack gap={10}>
