@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useSelector } from "react-redux";
-import "./../styles.css";
+import "./../../styles.css";
 
 //First filter based on type and then check the length calculation
 const AveragePercentageChart = () => {

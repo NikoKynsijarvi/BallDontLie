@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import HomeInfoStats from "../components/pageComponents/HomeInfoStats";
 import LastGameInfo from "../components/pageComponents/LastGameInfo";
-import HomePercentageChart from "../components/pageComponents/HomePercentageChart";
+import HomePercentageChart from "../components/charts/HomePercentageChart";
 import AddNewButton from "../components/pageComponents/AddNewButton";
 import AddShootaroundForm from "../components/forms/AddShootaroundForm";
 

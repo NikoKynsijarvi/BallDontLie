@@ -8,9 +8,10 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { changeHomeaverageChart } from "./../../reducers/settings";
-import AveragePercentageChart from "../AveragePercentageChart";
+import { changeHomeaverageChart } from "../../reducers/settings";
 import { useEffect } from "react";
+
+import AveragePercentageChart from "./AveragePercentageChart";
 
 const HomePercentageChart = () => {
   const [value, setValue] = React.useState("ft");
