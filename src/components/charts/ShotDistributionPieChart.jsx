@@ -6,19 +6,20 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-const data01 = [
-  { name: "Free throws", value: 400 },
-  { name: "Three pointers", value: 300 },
-];
 
-const COLORS = ["#7f03fc", "#F27649", "#FFBB28", "#FF8042"];
+const COLORS = ["#7f03fc", "#F27649"];
 
-const ShotDistributionPieChart = () => {
+const ShotDistributionPieChart = ({ threes, fts }) => {
+  const data = [
+    { name: "Free throws", value: fts },
+    { name: "Threes", value: threes },
+  ];
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <PieChart>
         <Pie
-          data={data01}
+          data={data}
           dataKey="value"
           cx="50%"
           cy="50%"
@@ -26,7 +27,7 @@ const ShotDistributionPieChart = () => {
           outerRadius={60}
           fill="#82ca9d"
         >
-          {data01.map((d, index) => (
+          {data.map((d, index) => (
             <Cell key={index} fill={COLORS[index]} />
           ))}
         </Pie>
