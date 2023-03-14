@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 
 import ShotsPerMonthBarChart from "../charts/ShotsPerMonthBarChart";
+import RadarGameAverages from "../charts/RadarGameAverages";
 import StatisticsTotal from "./StatisticsTotal";
 import ShotDistributionPieChart from "../charts/ShotDistributionPieChart";
 import ShotgroupService from "./../../services/shotgroup";
@@ -82,10 +83,40 @@ const StatisticsContainer = () => {
           </VStack>
         </VStack>
       </Card>
-      <Card w="50%" bgColor="#151e34ff" h="100%" padding={10}>
+      <Card w="50%" bgColor="#151e34ff" h="100%" padding={5}>
         <Stat>
-          <StatLabel color="white">Games</StatLabel>
+          <StatLabel fontSize="lg" color="white">
+            Game totals
+          </StatLabel>
         </Stat>
+        <VStack gap={5} w="full" h="100%">
+          <HStack w="full">
+            <StatisticsTotal text={"Points "} value={userStats.total} />
+
+            <StatisticsTotal text={"Assists "} value={userStats.total_threes} />
+
+            <StatisticsTotal text={"Rebounds "} value={userStats.total_fts} />
+          </HStack>
+          <Stat w="full">
+            <StatLabel fontSize="lg" color="white">
+              Game records
+            </StatLabel>
+          </Stat>
+          <HStack w="full">
+            <StatisticsTotal text={"Points"} value={`${userStats.total_fg}`} />
+
+            <StatisticsTotal
+              text={"Assist"}
+              value={`${userStats.total_three_fg}`}
+            />
+
+            <StatisticsTotal
+              text={"Rebounds"}
+              value={`${userStats.total_ft_percentage}`}
+            />
+          </HStack>
+          <RadarGameAverages />
+        </VStack>
       </Card>
     </HStack>
   );
