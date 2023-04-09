@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../reducers/userReducer";
+import { useSelector } from "react-redux";
 
 const UserNotLoggedIn = () => {
   return (
@@ -14,26 +13,6 @@ const UserNotLoggedIn = () => {
       <Link to="/signup">
         <button className="bg-primary px-6 py-2 rounded cursor-pointer text-white shadow-2xl hover:bg-violet-500">
           Sign up
-        </button>
-      </Link>
-    </div>
-  );
-};
-const UserLoggedIn = () => {
-  const dispatch = useDispatch();
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(logoutUser());
-  };
-
-  return (
-    <div className="flex gap-x-2">
-      <Link to="/login">
-        <button
-          onClick={(e) => logout(e)}
-          className="bg-primary px-6 py-2 rounded cursor-pointer text-white shadow-2xl hover:bg-violet-500"
-        >
-          Log out
         </button>
       </Link>
     </div>
